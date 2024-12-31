@@ -19,14 +19,12 @@ public class TheaterEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID")
+	@Column(name="id")
 	private int theaterId;
 	
-	@Column(name="name")
 	private String name;
-	
-	@Column(name="location")
-	private String location;
+	private String address;
+	private String city;
 	
 	@Column(name="total_seats")
 	private int totalSeats;

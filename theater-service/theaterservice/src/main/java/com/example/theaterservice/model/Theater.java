@@ -17,7 +17,9 @@ public class Theater {
 	@NotEmpty @NotNull (message="The Theater name is required")
 	private String name;
 	@NotEmpty @NotNull (message="The Theater location is required")
-	private String location;
+	private String address;
+	@NotEmpty @NotNull
+	private String city;
 	@Positive
 	private int totalSeats;
 
