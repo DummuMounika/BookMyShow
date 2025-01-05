@@ -1,4 +1,4 @@
-package com.project.microservices.user_service.service;
+package com.project.microservices.userservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 
-import com.project.microservices.user_service.exception.InvalidUserResponseException;
-import com.project.microservices.user_service.exception.UserNotFoundException;
-import com.project.microservices.user_service.mapper.UserMapper;
-import com.project.microservices.user_service.model.User;
-import com.project.microservices.user_service.model.UserRequest;
-import com.project.microservices.user_service.model.UserResponse;
-import com.project.microservices.user_service.model.entity.UserEntity;
-import com.project.microservices.user_service.repository.UserRepository;
+import com.project.microservices.userservice.exception.InvalidUserResponseException;
+import com.project.microservices.userservice.exception.UserNotFoundException;
+import com.project.microservices.userservice.mapper.UserMapper;
+import com.project.microservices.userservice.model.User;
+import com.project.microservices.userservice.model.UserRequest;
+import com.project.microservices.userservice.model.UserResponse;
+import com.project.microservices.userservice.model.entity.UserEntity;
+import com.project.microservices.userservice.repository.UserRepository;
 
 import lombok.extern.slf4j.Slf4j;
 

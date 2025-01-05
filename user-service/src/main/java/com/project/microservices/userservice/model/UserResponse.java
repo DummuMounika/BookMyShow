@@ -1,4 +1,4 @@
-package com.project.microservices.user_service.model;
+package com.project.microservices.userservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

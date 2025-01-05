@@ -1,4 +1,4 @@
-package com.project.microservices.user_service.model.entity;
+package com.project.microservices.userservice.model.entity;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package com.project.microservices.user_service.controller;
+package com.project.microservices.userservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.microservices.user_service.model.User;
-import com.project.microservices.user_service.model.UserRequest;
-import com.project.microservices.user_service.model.UserResponse;
-import com.project.microservices.user_service.service.UserService;
+import com.project.microservices.userservice.model.User;
+import com.project.microservices.userservice.model.UserRequest;
+import com.project.microservices.userservice.model.UserResponse;
+import com.project.microservices.userservice.service.UserService;
 
 import jakarta.validation.Valid;
 

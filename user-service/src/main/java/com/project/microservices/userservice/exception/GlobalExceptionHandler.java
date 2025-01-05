@@ -1,10 +1,11 @@
-package com.project.microservices.user_service.exception;
+package com.project.microservices.userservice.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import com.project.microservices.user_service.model.UserResponse;
+
+import com.project.microservices.userservice.model.UserResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

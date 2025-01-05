@@ -1,10 +1,10 @@
-package com.project.microservices.user_service.mapper;
+package com.project.microservices.userservice.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import com.project.microservices.user_service.model.User;
-import com.project.microservices.user_service.model.entity.UserEntity;
+import com.project.microservices.userservice.model.User;
+import com.project.microservices.userservice.model.entity.UserEntity;
 
 @Mapper
 public interface UserMapper {
