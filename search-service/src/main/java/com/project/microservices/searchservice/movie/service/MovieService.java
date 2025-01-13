@@ -2,11 +2,13 @@ package com.project.microservices.searchservice.movie.service;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import com.project.microservices.searchservice.model.SearchQueryResponse;
 
 public interface MovieService {
+	
+	public List<SearchQueryResponse> findTheatersByMovieNameAndTheaterCity(String movieName, String theaterCity);
 
-	public List<String> findMoviesByNameAndCity(@Valid @NotNull String name, @NotNull String city);
+	public List<String> findByMovieName(String movieName);
 
+	
 }

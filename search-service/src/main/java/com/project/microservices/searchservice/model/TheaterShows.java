@@ -1,7 +1,6 @@
 package com.project.microservices.searchservice.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import lombok.AllArgsConstructor;
@@ -15,5 +14,5 @@ public class TheaterShows {
 	
 	private int theaterId;
 	private String theaterName;
-	private HashMap<LocalDate,ArrayList<String>> showTime;
+	private  HashMap<LocalDate,HashMap<String,Integer>> showTimes;
 }

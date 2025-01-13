@@ -8,6 +8,6 @@ import com.project.microservices.searchservice.theater.entity.TheaterEntity;
 
 public interface TheaterRepository extends JpaRepository<TheaterEntity, Integer> {
 	
-	List<TheaterEntity> findByCity(String city);
+	List<TheaterEntity> findByTheaterCity(String theaterCity);
 
 }

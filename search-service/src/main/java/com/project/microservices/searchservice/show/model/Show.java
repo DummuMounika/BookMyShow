@@ -1,7 +1,11 @@
 package com.project.microservices.searchservice.show.model;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.project.microservices.searchservice.model.Status;
+import com.project.microservices.searchservice.utils.JsonTimestampSerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +16,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Show {
 	
-	private int showId;
-	private int theaterId;
-	private int movieId;
-	private String status;
+	private Integer showId;
 	private LocalDate showDate;
-	private LocalTime startTime;
-	private LocalTime endTime;
-
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp showStarttime;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp showEndtime;
+	private Integer showTheaterId;
+	private Integer showMovieId;
+	private Status showStatus;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp showCreatedon;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp showUpdatedon;
 }

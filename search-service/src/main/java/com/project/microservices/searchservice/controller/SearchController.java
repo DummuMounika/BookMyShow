@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.microservices.searchservice.model.SearchResponse;
 import com.project.microservices.searchservice.service.SearchService;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @RestController
 public class SearchController {
@@ -24,9 +23,9 @@ public class SearchController {
 		this.searchService = searchService;
 	}
 
-	@GetMapping("/api/movie/search")
-	public ResponseEntity<SearchResponse> searchMovie(@Valid @RequestParam  @NotNull String name,  @NotNull String city) {
-		return new ResponseEntity<>(searchService.findMovieByNameAndCity(name, city),HttpStatus.OK);
+	@GetMapping("/api/shows/search")
+	public ResponseEntity<SearchResponse> getShows(@RequestParam @NotBlank String movieName,@RequestParam @NotBlank String theaterCity) {
+	    return new ResponseEntity<>(searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity), HttpStatus.OK);
 	}
 
 }

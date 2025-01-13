@@ -1,5 +1,6 @@
 package com.project.microservices.searchservice.service;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +11,12 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.microservices.searchservice.exception.TheaterNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.model.SearchResponse;
 import com.project.microservices.searchservice.model.TheaterShows;
-import com.project.microservices.searchservice.repository.SearchRepository;
+import com.project.microservices.searchservice.movie.service.MovieService;
+import com.project.microservices.searchservice.utils.Utility;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,100 +24,93 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SearchServiceImpl  implements SearchService{
 	
-	private SearchRepository searchRepository;
+	private MovieService movieService;
+	
 	
 	@Autowired
-	public SearchServiceImpl(SearchRepository searchRepository) {
+	public SearchServiceImpl(MovieService movieService) {
 		super();
-		this.searchRepository = searchRepository;
+		this.movieService = movieService;
 	}
 	
 	@Override
-	public SearchResponse findMovieByNameAndCity(String name, String city) {
-		List<SearchQueryResponse> searchQueryResponseList = searchRepository.searchMoviesAndTheaters(name, city);
-		SearchResponse searchResponse = new SearchResponse();
-		
-		if(!searchQueryResponseList.isEmpty()) {
-			searchResponse.setMovieId(searchQueryResponseList.get(0).getId());
-			searchResponse.setMovieName(searchQueryResponseList.get(0).getMovieName());
-			searchResponse.setCity(searchQueryResponseList.get(0).getTheaterCity());
-			ArrayList<TheaterShows> theaterShowsList = new ArrayList<>();
-//			HashMap<LocalDate,ArrayList<String>> showsMap = new HashMap<>();
-			HashMap<Integer, HashMap<LocalDate,ArrayList<String>>> theaterShowTimings = new HashMap<>();
-			
-			for(SearchQueryResponse searchQueryResponse : searchQueryResponseList) {
-				
-				if(theaterShowTimings.containsKey(searchQueryResponse.getTheaterId())) {
-					HashMap<LocalDate, ArrayList<String>> theaterShowTimingsValues = theaterShowTimings.get(searchQueryResponse.getTheaterId());
-					if(theaterShowTimingsValues.containsKey(searchQueryResponse.getShowDate())) {
-						ArrayList<String> showList = theaterShowTimingsValues.get(searchQueryResponse.getShowDate());
-						showList.add(searchQueryResponse.getStartTime().toString());
-						theaterShowTimings.get(searchQueryResponse.getTheaterId()).put(searchQueryResponse.getShowDate(), showList);
-					}else {
-						ArrayList<String> listOfShowTimes = new ArrayList<String>();
-						listOfShowTimes.add(searchQueryResponse.getStartTime().toString());
-						theaterShowTimingsValues.put(searchQueryResponse.getShowDate(),listOfShowTimes);
-						theaterShowTimings.put(searchQueryResponse.getTheaterId(),theaterShowTimingsValues);
-					}
-				} else {
-					HashMap<LocalDate,ArrayList<String>> dateAndShowTimes = new HashMap<>();
-					ArrayList<String> listOfShowTimes = new ArrayList<>();
-					listOfShowTimes.add(searchQueryResponse.getStartTime().toString());
-					dateAndShowTimes.put(searchQueryResponse.getShowDate(), listOfShowTimes);
+	public SearchResponse findTheatersByMovieNameAndTheaterCity(String movieName, String theaterCity) {
+		    SearchResponse searchResponse = new SearchResponse();
+			try {
+				List<SearchQueryResponse> searchQueryResponseList = movieService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity);
+				log.info("Number of search results found: {}", searchQueryResponseList.size());
 					
-					theaterShowTimings.put(searchQueryResponse.getTheaterId(), dateAndShowTimes);
-				}
-				
-			}	
-			/*
-			 * 
-			 * {  
-						02-01-2024: [12:30,2:30,4:30,9:30]
-						03-01-2024: [05:43],
-						04-01-2024: [06:30]
+				if(searchQueryResponseList.isEmpty() || searchQueryResponseList == null) {
+					throw new TheaterNotFoundException("No theaters found for the given movie: " +movieName +"and city:"+theaterCity);
+				}else {
+						Integer movieId = searchQueryResponseList.get(0).getMovieId();
+						String name = searchQueryResponseList.get(0).getMovieName();
+						String city = searchQueryResponseList.get(0).getTheaterCity();
 						
-					}
-			  { 1 04-01-2024 6:30
-				1 : 
-					{  
-						02-01-2024: [12:30,2:30,4:30,9:30]
-						03-01-2024: [05:43]
+						searchResponse.setMovieId(movieId);
+						searchResponse.setMovieName(name);
+						searchResponse.setTheaterCity(city);
 						
-					},
-				3: 
-					{
-						02-01-2024: [07:43,09:23]
-					},
-				2: 
-					{	
-						02-01-2024: [6:30]
+						ArrayList<TheaterShows> theaterShowsList = new ArrayList<>();
+						HashMap<Integer, HashMap<LocalDate,HashMap<String,Integer>>> theaterShowTimings = new HashMap<>();
 						
-					}
+						for(SearchQueryResponse searchQueryResponse : searchQueryResponseList) {
+							
+							Integer theaterId = searchQueryResponse.getTheaterId();
+							Integer showId = searchQueryResponse.getShowId();
+							LocalDate showDate = searchQueryResponse.getShowDate();
+							Timestamp showStartTime = searchQueryResponse.getShowStarttime();
+
+							HashMap<String, Integer> listOfShowTimes = new HashMap<>();
+							String startTime = Utility.convertTimeStampToHours(showStartTime);
+							
+							if(theaterShowTimings.containsKey(theaterId)) {
+								
+								HashMap<LocalDate,HashMap<String,Integer>> theaterShowTimingsValues = 
+										theaterShowTimings.get(theaterId);
+								
+								if(theaterShowTimingsValues.containsKey(showDate)) {
+									listOfShowTimes = theaterShowTimingsValues.get(showDate);
+									listOfShowTimes.put(startTime,showId);
+									theaterShowTimings.get(theaterId).put(showDate, listOfShowTimes);
+								}else {
+									listOfShowTimes.put(startTime,showId);
+									theaterShowTimingsValues.put(showDate,listOfShowTimes);
+									theaterShowTimings.put(theaterId,theaterShowTimingsValues);
+								}
+							} else {
+								HashMap<LocalDate,HashMap<String, Integer>> dateAndShowTimes = new HashMap<>();
+								listOfShowTimes.put(startTime,showId);
+								dateAndShowTimes.put(showDate, listOfShowTimes);	
+								theaterShowTimings.put(theaterId, dateAndShowTimes);
+							}	
+						}	
 						
-			  } 
-			 */
+					Set<Integer> theatersIds = new HashSet<>() ;
 					
-			Set<Integer> theatersIds = new HashSet<>() ;
-			
-			for(SearchQueryResponse searchQueryResponse : searchQueryResponseList) {
-		
-				if(!theatersIds.contains(searchQueryResponse.getTheaterId())) {
-					TheaterShows theaterShows = new TheaterShows();
-					theaterShows.setTheaterId(searchQueryResponse.getTheaterId());
-					theaterShows.setTheaterName(searchQueryResponse.getTheaterName());
-					theaterShows.setShowTime(theaterShowTimings.get(searchQueryResponse.getTheaterId()));
-					theaterShowsList.add(theaterShows);
-					theatersIds.add(searchQueryResponse.getTheaterId());
+					for(SearchQueryResponse searchQueryResponse : searchQueryResponseList) {
+				
+						if(!theatersIds.contains(searchQueryResponse.getTheaterId())) {
+							TheaterShows theaterShows = new TheaterShows();
+							theaterShows.setTheaterId(searchQueryResponse.getTheaterId());
+							theaterShows.setTheaterName(searchQueryResponse.getTheaterName());
+							theaterShows.setShowTimes(theaterShowTimings.get(searchQueryResponse.getTheaterId()));
+							theaterShowsList.add(theaterShows);
+							theatersIds.add(searchQueryResponse.getTheaterId());
+						}
+					}
+					
+					searchResponse.setTheaterShows(theaterShowsList);
 				}
+			} catch (TheaterNotFoundException e) {
+				log.warn("No theater details found for movieName: {}  and city: {}", movieName,theaterCity);
+	            throw e;			
+			} catch (Exception e) {
+				log.error("Exception occurred while fetching theater details for movieName: {}  and city: {}. Error: {}", movieName ,theaterCity, e.getMessage(), e);
 			}
-			
-			searchResponse.setTheaterShows(theaterShowsList);
-		}
-		
-	
-		return searchResponse;
-		
+			return searchResponse;
 	}
+
 
 
 

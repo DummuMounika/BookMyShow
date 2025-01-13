@@ -13,6 +13,6 @@ public class SearchResponse {
 	
 	private int movieId;
 	private String movieName;
-	private String city;
+	private String theaterCity;
 	private List<TheaterShows> theaterShows;
 }

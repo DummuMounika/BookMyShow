@@ -4,6 +4,7 @@ import com.project.microservices.searchservice.model.SearchResponse;
 
 public interface SearchService {
 
-	public SearchResponse findMovieByNameAndCity(String name, String city);
+	public SearchResponse findTheatersByMovieNameAndTheaterCity(String movieName, String theaterCity);
+
 
 }

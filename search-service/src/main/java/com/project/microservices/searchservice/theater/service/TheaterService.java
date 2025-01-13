@@ -1,7 +1,5 @@
 package com.project.microservices.searchservice.theater.service;
 
-import com.project.microservices.searchservice.theater.model.Theater;
-
 public interface TheaterService {
 	
 	//public Theater createTheater(Theater theater);

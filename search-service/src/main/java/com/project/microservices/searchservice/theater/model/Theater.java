@@ -1,6 +1,12 @@
 package com.project.microservices.searchservice.theater.model;
 
 
+import java.sql.Timestamp;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.project.microservices.searchservice.utils.JsonTimestampSerializer;
+
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -13,14 +19,32 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Theater {
 	
-	private int theaterId;
+	
+	private Integer theaterId;
+
 	@NotEmpty @NotNull (message="The Theater name is required")
-	private String name;
+	@Column(name="theater_name")
+	private String theaterName;
+
 	@NotEmpty @NotNull (message="The Theater location is required")
-	private String address;
+	@Column(name="theater_address")
+	private String theaterAddress;
+
 	@NotEmpty @NotNull
-	private String city;
+	@Column(name="theater_city")
+	private String theaterCity;
+
 	@Positive
-	private int totalSeats;
+	@Column(name="theater_totalseats")
+	private Integer theaterTotalseats;
+
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	@Column(name="theater_createdon")
+	private Timestamp theaterCreatedon;
+
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	@Column(name="theater_updatedon")
+	private Timestamp theaterUpdatedon;
+	
 
 }

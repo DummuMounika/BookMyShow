@@ -1,7 +1,11 @@
 package com.project.microservices.searchservice.movie.model;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.LocalDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.project.microservices.searchservice.utils.JsonTimestampSerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,11 +15,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
+	
 	private int movieId;
-	private String title;
-	private String genre;
-	private String language;
-	private Duration duration;
-	private LocalDate releaseDate;
+	private String movieName;
+	private String movieLanguage;
+	private String movieGenre;
+	private Duration movieDuration;
+	private Date movieReleasedate;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp movieCreatedon;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp movieUpdatedon;
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.project.microservices.searchservice.theater.model.Error;
+import com.project.microservices.searchservice.model.Error;
 
 
 @ControllerAdvice
@@ -18,11 +18,21 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler({TheaterNotFoundException.class})
 	public ResponseEntity<Object> handleTheaterNotFoundException(TheaterNotFoundException exception){
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(),"Failed"));
+	}
+	
+	@ExceptionHandler({InvalidShowIDException.class})
+	public ResponseEntity<Object> handleInvalidShowIDException(InvalidShowIDException exception){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(),"Failed"));
+	}
+	
+	@ExceptionHandler({InvalidMovieNameException.class})
+	public ResponseEntity<Object> handleInvalidMovieNameException(InvalidMovieNameException exception){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(),"Failed"));
 	}
 	
 	@ExceptionHandler({NotFoundException.class})
-	public ResponseEntity<Object> handleNotFoundException(NotFoundException exception){
+	public ResponseEntity<?> handleNotFoundException(NotFoundException exception){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(),"Failed"));
 	}
 	
