@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserRequest {
 		@NotEmpty @NotNull
-		private String email;
+		private String userEmail;
 		@NotEmpty @NotNull
-		private String password;
+		private String userPassword;
 }

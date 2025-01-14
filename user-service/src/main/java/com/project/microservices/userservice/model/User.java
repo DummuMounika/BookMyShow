@@ -1,6 +1,9 @@
 package com.project.microservices.userservice.model;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.project.microservices.userservice.utils.JsonTimestampSerializer;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -13,14 +16,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 	
-	private int id;
+	private Integer userId;
 	@NotEmpty @NotNull
-	private String name;
+	private String userName;
 	@NotEmpty @NotNull
-	private String email;
+	private String userEmail;
 	@NotEmpty @NotNull
-	private String password;
-	private LocalDate createdon;
-	private LocalDate updatedon;
+	private String userPassword;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp userCreatedon;
+	@JsonSerialize(using = JsonTimestampSerializer.class)
+	private Timestamp userUpdatedon;
 
 }

@@ -1,16 +1,12 @@
 package com.project.microservices.userservice.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 
 import com.project.microservices.userservice.exception.InvalidUserResponseException;
 import com.project.microservices.userservice.exception.UserNotFoundException;
-import com.project.microservices.userservice.mapper.UserMapper;
 import com.project.microservices.userservice.model.User;
 import com.project.microservices.userservice.model.UserRequest;
 import com.project.microservices.userservice.model.UserResponse;
@@ -33,23 +29,21 @@ public class UserServiceImpl implements UserService{
     
 	//convertMethods
 	private User convertUserEntityToUser(UserEntity userEntity) {
-		return new User(userEntity.getId(),userEntity.getName(),userEntity.getEmail(),
-				userEntity.getPassword(),userEntity.getCreatedon(),userEntity.getUpdatedon());
+		return new User(userEntity.getUserId(),userEntity.getUserName(),userEntity.getUserEmail(),
+				userEntity.getUserPassword(),userEntity.getUserCreatedon(),userEntity.getUserCreatedon());
 	}
 	
 	private UserEntity convertUserToUserEntity(User user) {
-		return new UserEntity(user.getId(),user.getName(),user.getEmail(),
-				user.getPassword(),user.getCreatedon(),user.getUpdatedon());
+		return new UserEntity(user.getUserId(),user.getUserName(),user.getUserEmail(),
+				user.getUserPassword(),user.getUserCreatedon(),user.getUserCreatedon());
 	}
 	
 	@Override
 	public User createUser(User user) {
 		try {
-			//UserEntity userEntity = UserMapper.INSTANCE.toEntity(user);
 			UserEntity userEntity = convertUserToUserEntity(user);
 			log.info("Creating User:" +userEntity.toString());
 			UserEntity newUser = userRepository.save(userEntity);
-			//return UserMapper.INSTANCE.toModel(newUser);
 			return convertUserEntityToUser(newUser);
 		}catch(IllegalArgumentException e){
 			throw new IllegalArgumentException("Failed to create user: "+e.getMessage());		
@@ -58,10 +52,10 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserResponse loginUser(UserRequest userRequest) {
-		Optional<UserEntity> userEntity = userRepository.findByEmail(userRequest.getEmail());
+		Optional<UserEntity> userEntity = userRepository.findByUserEmail(userRequest.getUserEmail());
 		if(userEntity.isPresent()) {
 			UserEntity entity = userEntity.get();
-			 if (entity.getPassword().equals(userRequest.getPassword())) {
+			 if (entity.getUserPassword().equals(userRequest.getUserPassword())) {
 	              return new UserResponse(true, "Login successful");
 	         } else {
 	        	  throw new InvalidUserResponseException(false, "Invalid credentials");

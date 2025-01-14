@@ -8,6 +8,6 @@ import com.project.microservices.userservice.model.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
 
-	Optional<UserEntity> findByEmail(String email);
+	Optional<UserEntity> findByUserEmail(String userEmail);
 
 }
