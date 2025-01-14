@@ -1,0 +1,20 @@
+--USER-SERVICE
+
+--SEARCH-SERVICE
+http://localhost:8054/api/movie/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad
+http://localhost:8054/api/theater/seats?showId=502
+
+--Eureka
+http://localhost:8761/
+
+--API Gateway
+http://localhost:8765/api/movie/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad
+http://localhost:8765/api/theater/seats?showId=502
+
+http://localhost:8765/search-service/api/showdetails?showId=502
+http://localhost:8765/search-service/api/movie/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad
+http://localhost:8765/search-service/api/theater/seats?showId=503
+
+
+http://localhost:8765/booking-service/api/booking/summary
+http://localhost:8765/booking-service/api/booking/changeseatstatus?seatUniqueId=643&statusId=2&showId=502
