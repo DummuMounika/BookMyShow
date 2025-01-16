@@ -1,20 +1,23 @@
 --USER-SERVICE
+http://localhost:8053/api/register (Post Method)
+http://localhost:8053/api/login (Post Method)
 
 --SEARCH-SERVICE
-http://localhost:8054/api/movie/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad
-http://localhost:8054/api/theater/seats?showId=502
+http://localhost:8054/api/shows/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad (Get method)
+http://localhost:8054/api/theater/seats?showId=507 (Get method)
+http://localhost:8054/api/movie/search?movieName=pushpa (Get method)
+
+--BOOKING-SERVICE
+http://localhost:8055/api/booking/summary      (Post Method)
+http://localhost:8055/api/booking/changeseatstatus?seatUniqueIds=645&status=0&showId=502   (Patch Method)
 
 --Eureka
-http://localhost:8761/
+http://localhost:8761/ 
 
 --API Gateway
-http://localhost:8765/api/movie/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad
-http://localhost:8765/api/theater/seats?showId=502
-
-http://localhost:8765/search-service/api/showdetails?showId=502
-http://localhost:8765/search-service/api/movie/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad
-http://localhost:8765/search-service/api/theater/seats?showId=503
-
-
-http://localhost:8765/booking-service/api/booking/summary
-http://localhost:8765/booking-service/api/booking/changeseatstatus?seatUniqueId=643&statusId=2&showId=502
+http://localhost:8765/search-service/api/showdetails?showId=502 (Get method)
+http://localhost:8765/search-service/api/shows/search?movieName=Pushpa 2: The Rule&theaterCity=Hyderabad (Get method)
+http://localhost:8765/search-service/api/theater/seats?showId=503 (Get method)
+http://localhost:8765/search-service/api/movie/search?movieName=pushpa (Get method)
+http://localhost:8765/booking-service/api/booking/summary (Post Method)
+http://localhost:8765/booking-service/api/booking/changeseatstatus?seatUniqueIds=645&status=0&showId=502 (Patch Method)
