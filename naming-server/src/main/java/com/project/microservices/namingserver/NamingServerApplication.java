@@ -1,4 +1,4 @@
-package com.learnings.microservices.naming_server;
+package com.project.microservices.namingserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
