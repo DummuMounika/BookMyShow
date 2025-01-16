@@ -26,6 +26,5 @@ public interface MovieRepository extends JpaRepository<MovieEntity, Integer>  {
    List<SearchQueryResponse> searchByMovieNameAndCity(String movieName, String theaterCity);	
    
    @Query("SELECT movie.movieName FROM MovieEntity movie WHERE LOWER(movie.movieName) LIKE LOWER(CONCAT('%', :movieName, '%'))")
-   //@Query("SELECT movie.movieName FROM MovieEntity movie WHERE movie.movieName LIKE %:movieName%")
    List<String> findByMovieName(@Param("movieName") String movieName);
 }

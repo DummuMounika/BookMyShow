@@ -1,12 +1,11 @@
 package com.project.microservices.searchservice.movie.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.microservices.searchservice.exception.InvalidMovieNameException;
+import com.example.microservices.searchservice.exception.MovieNameNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.movie.repository.MovieRepository;
 
@@ -32,16 +31,12 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public List<String> findByMovieName(String movieName) {
-		List<String> listOfMovies = new ArrayList<>();
-		List<String> searchList = movieRepository.findByMovieName(movieName);
-		if(searchList.isEmpty()) {
+		List<String> listOfMovieNames = movieRepository.findByMovieName(movieName);
+		if(listOfMovieNames.isEmpty()) {
 			log.warn("No movie search list found for movieName: {}", movieName);
-		    throw new InvalidMovieNameException("No list found for the given name: " + movieName);
+		    throw new MovieNameNotFoundException("No list found for the given name: " + movieName);
 		}
-		for(String movie : searchList ) {
-			listOfMovies.add(movie);
-		}
-		return listOfMovies;
+		return listOfMovieNames;
 	}
 
 }

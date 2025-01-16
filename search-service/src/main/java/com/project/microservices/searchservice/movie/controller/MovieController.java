@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.microservices.searchservice.movie.service.MovieService;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 @RestController
 public class MovieController {
@@ -26,7 +26,7 @@ private MovieService movieService;
 	//TODO schema table for booking , payment
 	
 	@GetMapping("/api/movie/search")
-	public ResponseEntity<List<String>> getMoviesByName(@RequestParam @NotNull String movieName) {
+	public ResponseEntity<List<String>> getMoviesByName(@RequestParam @NotBlank String movieName) {
 	    return new ResponseEntity<>(movieService.findByMovieName(movieName), HttpStatus.OK);
 	}
 	

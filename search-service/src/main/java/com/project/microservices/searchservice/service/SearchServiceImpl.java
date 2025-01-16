@@ -16,8 +16,10 @@ import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.model.SearchResponse;
 import com.project.microservices.searchservice.model.TheaterShows;
 import com.project.microservices.searchservice.movie.service.MovieService;
+import com.project.microservices.searchservice.theater.repository.TheaterRepository;
 import com.project.microservices.searchservice.utils.Utility;
 
+import jakarta.ws.rs.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -25,12 +27,14 @@ import lombok.extern.slf4j.Slf4j;
 public class SearchServiceImpl  implements SearchService{
 	
 	private MovieService movieService;
+	private TheaterRepository theaterRepository;
 	
 	
 	@Autowired
-	public SearchServiceImpl(MovieService movieService) {
+	public SearchServiceImpl(MovieService movieService,TheaterRepository theaterRepository) {
 		super();
 		this.movieService = movieService;
+		this.theaterRepository = theaterRepository;
 	}
 	
 	@Override
@@ -109,6 +113,15 @@ public class SearchServiceImpl  implements SearchService{
 				log.error("Exception occurred while fetching theater details for movieName: {}  and city: {}. Error: {}", movieName ,theaterCity, e.getMessage(), e);
 			}
 			return searchResponse;
+	}
+
+	@Override
+	public List<String> getAllCities() {
+		List<String> cities = theaterRepository.searchAllCities();
+		if(cities.isEmpty()) {
+			throw new NotFoundException("No cities found from the entity");
+		}
+		return cities;
 	}
 
 
