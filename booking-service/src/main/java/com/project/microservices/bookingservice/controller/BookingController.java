@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.microservices.bookingservice.model.BookingSummaryRequest;
 import com.project.microservices.bookingservice.model.BookingSummaryResponse;
+import com.project.microservices.bookingservice.model.BookingDetails;
 import com.project.microservices.bookingservice.services.BookingService;
 
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +40,11 @@ public class BookingController {
 	        @RequestParam @NotNull Integer status,
 	        @RequestParam @NotNull Integer showId){
 		return ResponseEntity.ok(bookingService.updateSeatStatus(seatUniqueIds,status,showId));
+	}
+	
+	@PostMapping("api/addBooking")
+	public ResponseEntity<Integer> createBookingDetails(@RequestBody BookingDetails bookingDetails){
+		return ResponseEntity.ok(bookingService.createBooking(bookingDetails));
 	}
 	
 

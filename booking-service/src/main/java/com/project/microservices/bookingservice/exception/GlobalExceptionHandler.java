@@ -27,12 +27,17 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler({ InvalidSeatIdException.class })
 	public ResponseEntity<?> handleShowSeatIdException(InvalidSeatIdException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(), "Failed"));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error(exception.getMessage(), "Failed"));
 	}
 
 	@ExceptionHandler({ InvalidShowIdException.class })
 	public ResponseEntity<?> handleShowSeatShowIdException(InvalidShowIdException exception) {
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(), "Failed"));
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error(exception.getMessage(), "Failed"));
+	}
+	
+	@ExceptionHandler({InvalidRequestBodyException.class })
+	public ResponseEntity<?> handleInvalidRequestBodyException(InvalidRequestBodyException exception) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Error(exception.getMessage(), "Failed"));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
