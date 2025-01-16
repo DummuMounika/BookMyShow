@@ -1,4 +1,4 @@
-package com.example.microservices.userservice.entitygenerater;
+package com.project.microservices.userservice.entitygenerater;
 
 import java.io.BufferedWriter;
 import java.io.File;
