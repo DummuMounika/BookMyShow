@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:text="${subject}">Email Template</title>
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            font-size: 16px;
+            width: 70%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .brand {
+            font-size: 1.5em;
+            color: red !important;
+            text-decoration: none;
+            font-weight: 800;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .footer {
+            color: #aaa;
+            font-size: 0.8em;
+            font-weight: 300;
+        }
+        .json-data {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="#" class="brand">BookMyShow</a>
+        </div>
+        <h3>Dear, <span th:text="${name}"></span>, 
+        Your ticket(s) are <b>Confirmed!</b></h3>
+
+        <!-- Booking Information -->
+        <h4>Booking Details:</h4>
+        <table>
+            <tr>
+                <th>Booking ID</th>
+                <td th:utext="${bookingId}"></td>
+            </tr>
+            <tr>
+                <th>Payment ID</th>
+                <td th:utext="${paymentId}"></td>
+            </tr>
+            <tr>
+                <th>Payment Status</th>
+                <td th:utext="${paymentStatus ? 'Success' : 'Failure'}"></td>
+            </tr>
+            <tr>
+                <th>Payment Type</th>
+                <td th:utext="${paymentType}"></td>
+            </tr>
+        </table>
+
+        <!-- Seat Pricing Details -->
+        <h4>Seat Pricing Details:</h4>
+        <table>
+            <tr>
+                <th>Convenience Fees</th>
+                <td th:utext="${seatPricingDetails.convenienceFees}"></td>
+            </tr>
+            <tr>
+                <th>Seats Price</th>
+                <td th:utext="${seatPricingDetails.seatsPrize}"></td>
+            </tr>
+            <tr>
+                <th>Selected Seats</th>
+                <td>
+                    <ul>
+                        <li th:each="seat : ${#maps.entries(seatPricingDetails.selectedSeats)}" th:utext="${seat.key + ' - ' + seat.value}"></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Subtotal Price</th>
+                <td th:utext="${seatPricingDetails.subTotalPrize}"></td>
+            </tr>
+            <tr>
+                <th>Total Seats</th>
+                <td th:utext="${seatPricingDetails.totalSeats}"></td>
+            </tr>
+        </table>
+
+        <!-- Show Details -->
+        <h4>Show Details:</h4>
+        <table>
+            <tr>
+                <th>Movie Name</th>
+                <td th:utext="${showDetails.movieName}"></td>
+            </tr>
+            <tr>
+                <th>Show Date</th>
+                <td th:utext="${showDetails.showDate}"></td>
+            </tr>
+            <tr>
+                <th>Show Time</th>
+                <td th:utext="${showDetails.showTime}"></td>
+            </tr>
+            <tr>
+                <th>Theater Name</th>
+                <td th:utext="${showDetails.theaterName}"></td>
+            </tr>
+        </table>
+
+        <!-- User Information -->
+        <h4>User Information:</h4>
+        <table>
+            <tr>
+                <th>User Name</th>
+                <td th:utext="${user.userName}"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:utext="${user.userEmail}"></td>
+            </tr>
+        </table>
+
+        <br><br>
+        <div class="footer">
+            <p>Thank You</p>
+            <p>For any further assistance helpdesk@bookmyshow.com</p>
+        </div>
+    </div>
+</body>
+</html>
