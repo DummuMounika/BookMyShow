@@ -1,12 +1,9 @@
 package com.project.microservices.bookingservice.services;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +16,9 @@ import com.project.microservices.bookingservice.exception.InvalidSeatIdException
 import com.project.microservices.bookingservice.exception.InvalidShowIdException;
 import com.project.microservices.bookingservice.exception.SeatsUnavailableException;
 import com.project.microservices.bookingservice.exception.ShowDetailsFetchException;
+import com.project.microservices.bookingservice.model.BookingDetails;
 import com.project.microservices.bookingservice.model.BookingSummaryRequest;
 import com.project.microservices.bookingservice.model.BookingSummaryResponse;
-import com.project.microservices.bookingservice.model.BookingDetails;
 import com.project.microservices.bookingservice.model.SeatPricingDetails;
 import com.project.microservices.bookingservice.model.ShowDetails;
 import com.project.microservices.bookingservice.model.Status;
@@ -31,6 +28,7 @@ import com.project.microservices.bookingservice.showseats.entity.ShowSeatsEntity
 import com.project.microservices.bookingservice.showseats.repoistory.ShowSeatRepository;
 import com.project.microservices.bookingservice.utils.Utility;
 
+import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -52,16 +50,20 @@ public class BookingServiceImpl implements BookingService {
 	 
 	@Override
 	public ShowDetails fetchShowDetailsFromSearchService(Integer showId) {
-		log.info("Fetching show details for showId: {}", showId);
-		ResponseEntity<ShowDetails> response = searchServiceProxy.searchShowDetails(showId);
-		
-		if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-			 log.info("Successfully fetched show details for showId: {}", showId);
-	         return response.getBody();
-		}else {
-			 log.error("Failed to fetch show details for showId: {}", showId);
-	         throw new ShowDetailsFetchException("Failed to fetch show details for showId: " + showId);   
-	    }
+	    log.info("Fetching show details for showId: {}", showId);
+	    try {
+	        ResponseEntity<ShowDetails> response = searchServiceProxy.searchShowDetails(showId);
+	        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+	            log.info("Successfully fetched show details for showId: {}", showId);
+	            return response.getBody();
+	        } else {
+	            log.error("Failed to fetch show details for showId: {}", showId);
+	            throw new ShowDetailsFetchException("Failed to fetch show details for showId: " + showId);
+	        }
+		} catch (FeignException.ServiceUnavailable ex) {
+			 log.error("Exception occurred while fetching show details for showId: {}", showId, ex);
+		     throw new RuntimeException("Service unavailable", ex);
+		}
 	}
 
 	@Override
@@ -199,6 +201,7 @@ public class BookingServiceImpl implements BookingService {
 	    }
 		
 	}
+
 	
 	
 	
