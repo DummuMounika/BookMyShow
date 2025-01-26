@@ -8,4 +8,5 @@ public interface UserService {
 	
 	public User createUser(User user);
 	public UserResponse loginUser(UserRequest userRequest);
+	public User getUserDetails(Integer userId);
 }

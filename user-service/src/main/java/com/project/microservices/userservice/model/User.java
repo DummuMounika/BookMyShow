@@ -2,6 +2,7 @@ package com.project.microservices.userservice.model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.project.microservices.userservice.utils.JsonTimestampSerializer;
 
@@ -22,9 +23,13 @@ public class User {
 	@NotEmpty @NotNull
 	private String userEmail;
 	@NotEmpty @NotNull
+	@JsonIgnore
 	private String userPassword;
+	private Integer userNotificationtype;
+	@JsonIgnore
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	private Timestamp userCreatedon;
+	@JsonIgnore
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	private Timestamp userUpdatedon;
 

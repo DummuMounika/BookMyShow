@@ -30,12 +30,12 @@ public class UserServiceImpl implements UserService{
 	//convertMethods
 	private User convertUserEntityToUser(UserEntity userEntity) {
 		return new User(userEntity.getUserId(),userEntity.getUserName(),userEntity.getUserEmail(),
-				userEntity.getUserPassword(),userEntity.getUserCreatedon(),userEntity.getUserCreatedon());
+				userEntity.getUserPassword(),userEntity.getUserNotificationtype(),userEntity.getUserCreatedon(),userEntity.getUserCreatedon());
 	}
 	
 	private UserEntity convertUserToUserEntity(User user) {
 		return new UserEntity(user.getUserId(),user.getUserName(),user.getUserEmail(),
-				user.getUserPassword(),user.getUserCreatedon(),user.getUserCreatedon());
+			user.getUserPassword(),	user.getUserNotificationtype(),user.getUserCreatedon(),user.getUserCreatedon());
 	}
 	
 	@Override
@@ -63,6 +63,15 @@ public class UserServiceImpl implements UserService{
 		}else {		
 			throw new UserNotFoundException(false, "User not found");		
 		}
+	}
+
+	@Override
+	public User getUserDetails(Integer userId) {
+		Optional<UserEntity> userDetail = userRepository.findById(userId);
+		if(userDetail.isEmpty()) {
+			throw new UserNotFoundException(false, "User not found");	
+		}
+		return convertUserEntityToUser(userDetail.get());
 	}
 
 

@@ -37,6 +37,9 @@ public class UserEntity {
 
 	@Column(name="user_password")
 	private String userPassword;
+	
+	@Column(name="user_notificationtype")
+	private Integer userNotificationtype;
 
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	@Column(name="user_createdon")
