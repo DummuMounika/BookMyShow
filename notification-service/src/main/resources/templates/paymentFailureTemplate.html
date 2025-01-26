@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${subject}"></title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 25px 0; 
+            line-height: 1.6;
+            background-color: black;
+			padding: 10px 20px; 
+        }
+		.header, .footer {
+            background-color: #1f2533;
+            color: white;
+            padding: 0px 0px;
+        }
+		.container, .common-container {
+            max-width: 600px;
+            margin: auto;
+        }
+		 .header img {
+            height: 50px;
+        }
+        .header p {
+            margin: 0;
+        }
+        .barcode {
+            width: 100px;
+            height: 100px;
+        }
+        .common-container {
+            background-color: #ffffff;
+            color: #666666;
+            font-size: 12px;
+			margin-top:-20px;
+			padding-top: 10px;
+        }
+		p{
+			margin-left:20px;
+		}
+        .second-container {
+            background-color: #f2f2f2;
+			padding: 20px;
+			font-size: 12px;
+        }
+        .third-container {
+            background-color: #ffffff;
+			width:97%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 5px 10px;
+        }
+        th {
+            font-weight: bold;
+        }
+        .important-instructions {
+            text-align: justify;
+            font-size: 12px;
+			margin-left:26px;
+			margin-top:10px;
+			padding-bottom:0px;
+			padding-right:17px;
+        }
+        .footer a {
+            color: #49ba8e;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .footer p {
+            margin: 5px 0;
+            font-size: 12px;
+			color: #49ba8e;
+        }
+    </style>
+</head>
+<body>
+	<div class="container">
+        <div class="header">
+            <table>
+                <tr>
+                    <td style="text-align: left;">
+                        <a href="#">
+                            <img src="https://raw.githubusercontent.com/DummuMounika/BookMyShow/master/notification-service/src/main/resources/icons/bookMyShowLogo.png" 
+                            alt="BookMyShow Logo">
+                        </a>
+                    </td>
+                    <td style="text-align: right;">
+                        <p>THIS IS <span style="color: red;">NOT</span> YOUR TICKET</p>
+                        <p style="font-size: 11px; color: #74777e;">Exchange this at the box office for your ticket</p>
+                    </td>
+                </tr>
+            </table>
+       </div>
+	   
+	   <div class="common-container">
+            <p>Dear <span th:text="${userName}"></span>,
+            <br>Your ticket(s) are failed to <b>Confirm!</b></p>
+
+            <div class="second-container">
+					<table>
+						<tr>
+							<td>
+								<p style="margin-left:0px">BOOKING NUMBER<br>
+								<b style="font-size:15px" th:utext="${bookingId}">123</b></p>
+								</b></p>
+							</td>
+						</tr>
+					</table>
+				 <div class="third-container">
+						<table>
+							<tr>
+							   <p><b>We're sorry!</b> Your payment could not be processed. Please review your payment details and try again. If the issue persists, contact your bank or card issuer for assistance.
+							   </p>
+							</tr>
+						</table>
+				 </div>
+				 <table>
+						<tr>
+							<td><b>BOOKING DATE & TIME</b><br>
+								<span th:text="${T(java.time.LocalDateTime).now()}">Date & Time</span>
+							</td>
+						  <td>
+								<b>PAYMENT TYPE</b><br>
+								<span th:switch="${paymentType}">
+									<span th:case="1">UPI</span>
+									<span th:case="2">Card</span>
+									<span th:case="3">Net Banking</span>
+									<span th:case="*">Other</span>
+								</span>
+							</td>
+							<td><b>CONFIRMATION NUMBER</b><br>
+								<span th:text="${paymentId}">720</span>
+							</td>
+						</tr>
+					</table>
+					<p>
+           
+			</div>
+			<div class="important-instructions">
+                <b>Next Steps:</b><br>You can retry the payment or contact our support team for further assistance. 
+				Ensure your card details are entered correctly during the next attempt.<br><br>
+            </div>
+        </div>
+		<div class="footer">
+            <table>
+                <tr>
+                    <td style="text-align: left;">
+                        <p>For any further assistance</p>
+                        <p><a href="mailto:helpdesk@bookmyshow.com">helpdesk@bookmyshow.com</a></p>
+                    </td>
+                    <td style="text-align: right;">
+                        <p>9876543210</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

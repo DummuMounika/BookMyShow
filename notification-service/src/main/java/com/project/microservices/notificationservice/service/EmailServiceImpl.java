@@ -1,9 +1,12 @@
 package com.project.microservices.notificationservice.service;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import jakarta.mail.internet.MimeMessage;
@@ -25,7 +28,7 @@ public class EmailServiceImpl implements EmailService {
 	private String sender;
 
 	@Override
-	public String sendEmail(String to, String subject, String body){
+	public CompletableFuture<String> sendEmail(String to, String subject, String body){
 		try {
 			  MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 	          MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
@@ -35,10 +38,10 @@ public class EmailServiceImpl implements EmailService {
 			  mimeMessageHelper.setText(body, true); // true indicates HTML content
 			  javaMailSender.send(mimeMessage);
 			  log.info("Email sent successfully to {}", to);
-			  return "Email sent successfully ";
+			  return CompletableFuture.completedFuture("Email sent successfully ");
 		}catch (Exception e) {
             log.error("Error sending email", e);
-            return "Error sending email";
+            return CompletableFuture.completedFuture("Error sending email");
         }
 		
 	}
