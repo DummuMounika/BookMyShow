@@ -17,7 +17,7 @@ public class PaymentMethodUpiServiceImpl implements PaymentMethod{
 		if(upi != null) {
 			upi.getUpiId();
 			log.info("Accepting payment using Upi");
-			return false;
+			return true;
 		}else {
 			return false;
 		}

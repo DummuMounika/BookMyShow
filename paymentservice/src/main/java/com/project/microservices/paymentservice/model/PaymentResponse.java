@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PaymentResponse {
 	
+	private User user;
 	private Integer bookingId; 
 	private Integer paymentId;
 	private Integer paymentType;
