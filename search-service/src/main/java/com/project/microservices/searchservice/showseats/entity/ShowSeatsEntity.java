@@ -51,6 +51,9 @@ public class ShowSeatsEntity {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name="showseat_status")
 	private Status showseatStatus;
+	
+	@Column(name="showseat_ticketcost")
+	private Integer showseatTicketcost;
 
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	@Column(name="showseat_createdon")

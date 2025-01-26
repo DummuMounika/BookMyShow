@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.microservices.searchservice.movie.service.MovieService;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.constraints.NotBlank;
 
 @RestController
@@ -23,7 +24,6 @@ private MovieService movieService;
 		super();
 		this.movieService = movieService;
 	}
-	//TODO schema table for booking , payment
 	
 	@GetMapping("/api/movie/search")
 	public ResponseEntity<List<String>> getMoviesByName(@RequestParam @NotBlank String movieName) {

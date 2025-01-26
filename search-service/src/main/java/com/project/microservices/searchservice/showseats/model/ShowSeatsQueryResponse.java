@@ -25,5 +25,6 @@ public class ShowSeatsQueryResponse {
 	private String showseatRow;
 	private Integer showseatSeatno;
 	private Status showseatStatus;
+	private Integer showseatSeatTicketCost;
 
 }

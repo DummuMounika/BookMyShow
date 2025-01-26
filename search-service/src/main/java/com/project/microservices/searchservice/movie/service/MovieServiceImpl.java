@@ -9,6 +9,8 @@ import com.example.microservices.searchservice.exception.MovieNameNotFoundExcept
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.movie.repository.MovieRepository;
 
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -17,6 +19,7 @@ public class MovieServiceImpl implements MovieService {
 	
 	
 	private MovieRepository movieRepository;
+	Integer i = 1;
 	
 	@Autowired
 	public MovieServiceImpl(MovieRepository movieRepository) {
@@ -30,7 +33,9 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
+	@RateLimiter(name = "myRateLimiter")
 	public List<String> findByMovieName(String movieName) {
+		log.info("Opened this movie serach service for {} th", i++);
 		List<String> listOfMovieNames = movieRepository.findByMovieName(movieName);
 		if(listOfMovieNames.isEmpty()) {
 			log.warn("No movie search list found for movieName: {}", movieName);

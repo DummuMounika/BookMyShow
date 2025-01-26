@@ -21,7 +21,7 @@ public interface ShowSeatsRepository extends JpaRepository<ShowSeatsEntity, Inte
 		       "theaters.theaterId, theaters.theaterName, " +
 		       "shows.showId,shows.showStarttime,shows.showDate," +
 		       "showseats.showseatId, showseats.showseatRow, " +
-		       "showseats.showseatSeatno, showseats.showseatStatus) " +
+		       "showseats.showseatSeatno, showseats.showseatStatus , showseats.showseatTicketcost) " +
 		       "FROM ShowEntity shows " +
 		       "JOIN shows.theater theaters " +
 		       "JOIN shows.movie movies " +

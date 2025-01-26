@@ -62,6 +62,7 @@ public class ShowSeatsServiceImpl implements ShowSeatsService {
 						
 						showSeatSubDetails.setShowseatId(response.getShowseatId());
 						showSeatSubDetails.setStatus(seatStatus);
+						showSeatSubDetails.setPrice(response.getShowseatSeatTicketCost());
 
 						if(seatDetailsMap.containsKey(rows)) {   //Check if the row is already exists in the map
 							rowSeats = seatDetailsMap.get(rows); //Add the seats to existing row entry

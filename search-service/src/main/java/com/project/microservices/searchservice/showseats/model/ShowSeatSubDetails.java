@@ -13,5 +13,6 @@ public class ShowSeatSubDetails {
 	
 	private Status status;
 	private Integer showseatId;
+	private Integer price;
 
 }
