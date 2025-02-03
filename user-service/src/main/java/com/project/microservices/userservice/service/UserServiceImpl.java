@@ -71,6 +71,7 @@ public class UserServiceImpl implements UserService{
 		if(userDetail.isEmpty()) {
 			throw new UserNotFoundException(false, "User not found");	
 		}
+		log.info("user found with {}",userId);
 		return convertUserEntityToUser(userDetail.get());
 	}
 

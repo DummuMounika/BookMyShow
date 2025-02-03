@@ -17,8 +17,10 @@ import com.project.microservices.userservice.service.UserService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 public class UserController {
 	
 	private UserService userService;
