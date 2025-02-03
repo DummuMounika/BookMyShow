@@ -13,6 +13,7 @@ BookMyShow follows a modular microservices approach, enabling flexibility and hi
 - **Notification Service**: Sends booking confirmations and alerts.
 - **Eureka Discovery Service**: Enables service discovery.
 - **API Gateway**: Acts as a central entry point for client requests.
+- **Spring Config Server**: Manages Common Configuration.
 
 ## 🛠️ Infrastructure
 - **Spring Cloud Config Server**: Centralized configuration management.
