@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.microservices.searchservice.exception.InvalidShowIDException;
+import com.project.microservices.searchservice.exception.InvalidShowIDException;
 import com.project.microservices.searchservice.model.Status;
 import com.project.microservices.searchservice.show.model.ShowDetails;
 import com.project.microservices.searchservice.showseats.model.ShowSeatSubDetails;

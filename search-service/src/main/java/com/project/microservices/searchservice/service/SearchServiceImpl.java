@@ -11,7 +11,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.microservices.searchservice.exception.TheaterNotFoundException;
+import com.project.microservices.searchservice.exception.TheaterNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.model.SearchResponse;
 import com.project.microservices.searchservice.model.TheaterShows;

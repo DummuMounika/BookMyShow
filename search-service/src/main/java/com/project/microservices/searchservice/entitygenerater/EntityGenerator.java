@@ -1,4 +1,4 @@
-package com.example.microservices.searchservice.entitygenerater;
+package com.project.microservices.searchservice.entitygenerater;
 
 import java.io.BufferedWriter;
 import java.io.File;

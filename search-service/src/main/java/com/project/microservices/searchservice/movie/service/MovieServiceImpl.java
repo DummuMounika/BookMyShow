@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.microservices.searchservice.exception.MovieNameNotFoundException;
+import com.project.microservices.searchservice.exception.MovieNameNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.movie.repository.MovieRepository;
 
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 

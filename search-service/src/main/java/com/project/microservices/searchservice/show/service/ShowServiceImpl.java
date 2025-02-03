@@ -3,7 +3,7 @@ package com.project.microservices.searchservice.show.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.microservices.searchservice.exception.InvalidShowIDException;
+import com.project.microservices.searchservice.exception.InvalidShowIDException;
 import com.project.microservices.searchservice.show.model.ShowDetails;
 import com.project.microservices.searchservice.show.model.ShowDetailsQueryResponse;
 import com.project.microservices.searchservice.show.repository.ShowRepository;

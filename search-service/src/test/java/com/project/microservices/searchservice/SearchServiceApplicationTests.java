@@ -1,4 +1,4 @@
-package com.project.microservices.search_service;
+package com.project.microservices.searchservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

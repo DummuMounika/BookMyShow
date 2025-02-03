@@ -1,4 +1,4 @@
-package com.example.microservices.searchservice.exception;
+package com.project.microservices.searchservice.exception;
 
 import java.util.HashMap;
 import java.util.Map;
