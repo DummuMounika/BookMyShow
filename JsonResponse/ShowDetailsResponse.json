@@ -1,0 +1,102 @@
+
+
+
+RequestBody:http://localhost:8765/search-service/api/theater/seats?showId=503
+
+ResponseBody:
+{
+	"showDetails": {
+		"movieId": 201,
+		"movieName": "Pushpa 2: The Rule",
+		"theaterId": 301,
+		"theaterName": "AMB Cinemas: Gachibowli",
+		"showId": 502,
+		"showTime": "14:00",
+		"showDate": "2025-01-07"
+	},
+	"seatDetails": {
+		"A": {
+			"1": {
+				"status": "BOOKED",
+				"showseatId": 641,
+				"showseatTicketcost": 10
+			},
+			"2": {
+				"status": "BOOKED",
+				"showseatId": 642,
+				"showseatTicketcost": 10
+			}
+		},
+		"B": {
+			"3": {
+				"status": "BOOKED",
+				"showseatId": 643,
+				"showseatTicketcost": 10
+			},
+			"4": {
+				"status": "PENDING",
+				"showseatId": 644,
+				"showseatTicketcost": 10
+			},
+			"5": {
+				"status": "PENDING",
+				"showseatId": 645,
+				"showseatTicketcost": 10
+			},
+			"6": {
+				"status": "BOOKED",
+				"showseatId": 646,
+				"showseatTicketcost": 10
+			}
+		},
+		"C": {
+			"7": {
+				"status": "AVAILABLE",
+				"showseatId": 647,
+				"showseatTicketcost": 10
+			},
+			"8": {
+				"status": "AVAILABLE",
+				"showseatId": 648,
+				"showseatTicketcost": 10
+			},
+			"9": {
+				"status": "AVAILABLE",
+				"showseatId": 649,
+				"showseatTicketcost": 10
+			},
+			"10": {
+				"status": "AVAILABLE",
+				"showseatId": 650,
+				"showseatTicketcost": 10
+			}
+		},
+		"D": {
+			"11": {
+				"status": "BOOKED",
+				"showseatId": 651,
+				"showseatTicketcost": 10
+			},
+			"12": {
+				"status": "BOOKED",
+				"showseatId": 652,
+				"showseatTicketcost": 10
+			},
+			"13": {
+				"status": "AVAILABLE",
+				"showseatId": 653,
+				"showseatTicketcost": 10
+			},
+			"14": {
+				"status": "AVAILABLE",
+				"showseatId": 654,
+				"showseatTicketcost": 10
+			},
+			"15": {
+				"status": "AVAILABLE",
+				"showseatId": 655,
+				"showseatTicketcost": 10
+			}
+		}
+	}
+}

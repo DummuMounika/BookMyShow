@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order Confirmation</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #79a2c5;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Order Confirmation</h2>
+        <p>Dear [Customer's Name],</p>
+        <p>Thank you for shopping with <b>[store name]!</b> We are excited to confirm that your order has been successfully processed. Below are the details of your purchase:</p>
+        <h3>Order Details:</h3>
+        <p><strong>Order Number:</strong> [Order Number]<br>
+           <strong>Order Date:</strong> [Order Date]</p>
+        <h3>Shipping Address:</h3>
+        <p>[Customer's Shipping Address]</p>
+        <h3>Order Summary:</h3>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            <!-- Add rows dynamically with server-side processing -->
+            [products]
+            <!-- Repeat for other items -->
+            <tr>
+                <td colspan="3" style="text-align: right;">Subtotal:</td>
+                <td>$[Subtotal]</td>
+            </tr>
+            <!-- Add shipping and total rows -->
+        </table>
+        <h3>Shipping Method:</h3>
+        <p>Standard Shipping</p>
+        <h3>Estimated Delivery Date:</h3>
+        <p>We'll deliver quickly!</p>
+        <h3>Payment Details:</h3>
+        <table>
+            <tr>
+                <th>Payment Method</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+            </tr>
+            <tr>
+                <td>[Payment Method Name]</td>
+                <td>$[Subtotal]</td>
+                <td>[Payment Status]</td>
+            </tr>
+        </table>
+        <p><strong>Please Note:</strong></p>
+        <ul>
+            <li>Your order confirmation number is [Order Number]. Please reference this number in any communication regarding your order.</li>
+            <li>You can track the status of your order by logging into your account on our website.</li>
+        </ul>
+        <p>Thank you once again for choosing <b>[store name]</b>. We appreciate your business and look forward to serving you again in the future!</p>
+        <p>Sincerely,<br><b>Multi Market Hub Team</b></p>
+    </div>
+</body>
+</html>
