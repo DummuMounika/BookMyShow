@@ -30,16 +30,18 @@ BookMyShow follows a modular microservices approach, enabling flexibility and hi
 BookMyShow supports deployment in various environments with the following technologies:
 
 - **Containerization**: Docker ensures consistency across environments.
+- **Amazon ECS (Fargate)**: Manages containerized applications without the need to manage servers.
 
 ## 📌 API Endpoints
 ### 🎭 User Service (USER-SERVICE)
-- `GET /api/userDetails?userId= - Retrieve user detail
+- `GET /api/userDetails?userId=` - Retrieve user detail
 - `POST /api/register` - Register a new user
 - `POST /api/login` - Authenticate a user
 
 ### 🔍Search Service (SEARCH-SERVICE)
 - `GET /api/cities` - Retrieve all cities
 - `GET /api/movie/search?movieName=` - Search Movies based on movie name
+- `GET /api/movie/explore?cityName=`  - Search Movies based on city name
 - `GET /api/showdetails?showId=` - Retrieve Show details by show Id
 - `GET /api/theater/seats?showId=` - Retrieve Show seat details by show Id
 - `POST /api/shows/search?movieName=City=` - Search Theaters based on movie name and city
@@ -77,4 +79,23 @@ BookMyShow supports deployment in various environments with the following techno
    - **API Gateway**: `http://localhost:8080`
    - **PostgreSQL Admin**: `http://localhost:5432`
 
-
+### AWS Deployment
+For cloud deployment, the application is containerized and deployed on AWS ECS (Fargate) using the following steps:
+1. Build & Push Docker Images
+   ```bash
+   docker build -t bookmyshow-service .
+   aws ecr create-repository --repository-name bookmyshow-service
+   docker tag bookmyshow-service:latest <AWS_ACCOUNT_ID>.dkr.ecr.     
+   <AWS_REGION>.amazonaws.com/bookmyshow-service
+   docker push <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/bookmyshow-service
+   ```
+2. Deploy to ECS
+   - Create an ECS cluster using Fargate.
+   - Define a Task Definition specifying the container image from ECR.
+   - Configure an Application Load Balancer (ALB) for handling traffic.
+   - Set up AWS Secrets Manager for managing environment variables securely.
+   - Deploy the task to an ECS service.
+3. Monitor & Scale
+   - Use CloudWatch for log monitoring.
+   - Enable Auto Scaling based on traffic load.
+Once deployed, the application is accessible through the Application Load Balancer (ALB) DNS.
