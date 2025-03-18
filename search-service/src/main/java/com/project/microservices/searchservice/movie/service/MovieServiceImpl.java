@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.microservices.searchservice.exception.MovieNameNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.movie.repository.MovieRepository;
+import com.project.microservices.searchservice.show.repository.ShowRepository;
 
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,12 +19,14 @@ public class MovieServiceImpl implements MovieService {
 	
 	
 	private MovieRepository movieRepository;
+	private ShowRepository showRepository;
 	Integer i = 1;
 	
 	@Autowired
-	public MovieServiceImpl(MovieRepository movieRepository) {
+	public MovieServiceImpl(MovieRepository movieRepository, ShowRepository showRepository) {
 		super();
 		this.movieRepository = movieRepository;
+		this.showRepository = showRepository;
 	}	
 
 	@Override
@@ -41,6 +44,16 @@ public class MovieServiceImpl implements MovieService {
 		    throw new MovieNameNotFoundException("No list found for the given name: " + movieName);
 		}
 		return listOfMovieNames;
+	}
+
+	@Override
+	public List<String> findMoviesByCity(String cityName) {
+		List<String> listOfMovieNamesByCity = showRepository.searchByCitiesToGetMovies(cityName);
+		if(listOfMovieNamesByCity.isEmpty()) {
+			log.warn("No movie search list found for movieName: {}", cityName);
+		    throw new MovieNameNotFoundException("No list found for the given name: " + cityName);
+		}
+		return listOfMovieNamesByCity;
 	}
 
 }

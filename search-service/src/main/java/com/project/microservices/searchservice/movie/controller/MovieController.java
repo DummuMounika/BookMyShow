@@ -30,5 +30,10 @@ private MovieService movieService;
 	    return new ResponseEntity<>(movieService.findByMovieName(movieName), HttpStatus.OK);
 	}
 	
+	@GetMapping("/api/movie/explore")
+	public ResponseEntity<List<String>> getMoviesByCity(@RequestParam @NotBlank String cityName) {
+	    return new ResponseEntity<>(movieService.findMoviesByCity(cityName), HttpStatus.OK);
+	}
+	
 
 }

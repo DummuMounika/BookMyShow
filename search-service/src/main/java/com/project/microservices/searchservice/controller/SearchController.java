@@ -27,7 +27,8 @@ public class SearchController {
 
 	@GetMapping("/api/shows/search")
 	public ResponseEntity<SearchResponse> getShows(@RequestParam @NotBlank String movieName,@RequestParam @NotBlank String theaterCity) {
-	    return new ResponseEntity<>(searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity), HttpStatus.OK);
+		SearchResponse result = searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity);
+	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	@GetMapping("/api/cities")

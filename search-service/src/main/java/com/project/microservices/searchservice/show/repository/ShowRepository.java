@@ -1,7 +1,10 @@
 package com.project.microservices.searchservice.show.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.project.microservices.searchservice.show.entity.ShowEntity;
@@ -20,4 +23,12 @@ public interface ShowRepository extends JpaRepository<ShowEntity, Integer> {
             "WHERE s.showId = :showId "+
             "ORDER BY s.showDate, s.showStarttime")
    ShowDetailsQueryResponse searchShowDetails(Integer showId);
+   
+	@Query(value = "SELECT DISTINCT m.movieName FROM ShowEntity s "
+		     + "JOIN TheaterEntity t ON s.showTheaterId = t.theaterId "
+		     + "JOIN MovieEntity m ON s.showMovieId = m.movieId "
+		     + "WHERE t.theaterCity = :city")
+		List<String> searchByCitiesToGetMovies(@Param("city") String city);
+
+
 }
