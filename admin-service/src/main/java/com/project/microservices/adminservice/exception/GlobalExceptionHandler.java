@@ -18,8 +18,8 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(), "Failed"));
 	}
 
-	@ExceptionHandler({ SeatsUnavailableException.class })
-	public ResponseEntity<?> handleSeatStatusAvailableException(SeatsUnavailableException exception) {
+	@ExceptionHandler({ ShowServiceUnavailableException.class })
+	public ResponseEntity<?> handleSeatStatusAvailableException(ShowServiceUnavailableException exception) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(), "Failed"));
 	}
 

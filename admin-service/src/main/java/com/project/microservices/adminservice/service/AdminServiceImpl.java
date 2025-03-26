@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.microservices.adminservice.exception.InvalidIdException;
 import com.project.microservices.adminservice.exception.ShowSeatsDetailsFetchException;
+import com.project.microservices.adminservice.exception.ShowServiceUnavailableException;
 import com.project.microservices.adminservice.model.ShowReqBody;
 import com.project.microservices.adminservice.model.ShowSeatsResponse;
 import com.project.microservices.adminservice.model.Status;
@@ -38,19 +39,17 @@ public class AdminServiceImpl implements AdminService {
 	private TheaterRepository theaterRepository;
 	private TheaterseatsRepository theaterseatsRepository;
 	private final SearchServiceProxy searchServiceProxy;
-	private MovieRepository movieRepository;
 	
 	
     @Autowired
 	public AdminServiceImpl(SearchServiceProxy searchServiceProxy,ShowSeatsRepository showSeatsRepository, ShowRespository showRespository, TheaterRepository theaterRepository
-			,TheaterseatsRepository theaterseatsRepository,MovieRepository movieRepository) {
+			,TheaterseatsRepository theaterseatsRepository) {
 		super();
 		this.searchServiceProxy = searchServiceProxy;
 		this.showSeatsRepository = showSeatsRepository;
 		this.showRespository = showRespository;
 		this.theaterRepository = theaterRepository;
 		this.theaterseatsRepository = theaterseatsRepository;
-		this.movieRepository  = movieRepository;
 	}
     
     @Override
@@ -67,15 +66,12 @@ public class AdminServiceImpl implements AdminService {
 	        }
 		} catch (FeignException.ServiceUnavailable ex) {
 			 log.error("Exception occurred while fetching show details for showId: {}", showId, ex);
-		     throw new RuntimeException("Service unavailable", ex);
+			 throw new ShowServiceUnavailableException("Show search service is unavailable", ex);
 		}
 	}
     
     @Override
     public ShowEntity addShow(ShowReqBody showInfo) {
-//    	Optional<MovieEntity> movieEntity = movieRepository.findById(showInfo.getShowMovieId());
-//    	Optional<TheaterEntity> theaterEntity = theaterRepository.findById(showInfo.getShowTheaterId());
-//    	movieEntity.isEmpty() || theaterEntity.isEmpty() 
     	if (showInfo.getShowMovieId() == null || showInfo.getShowTheaterId() == null) {
     	    throw new InvalidIdException("Movie ID and Theater ID must be provided.");
     	}
@@ -89,11 +85,10 @@ public class AdminServiceImpl implements AdminService {
 		showEntity.setShowDate(showInfo.getShowDate());
 		showEntity.setShowStatus("0");
 		ShowEntity newShow = showRespository.save(showEntity);
-		log.info("Creating show:"+showEntity);
+		log.info("Creating show: "+showEntity);
 		return newShow; 	
     }   
 	
-	@Transactional
     @Override
 	public ShowSeatsResponse addShowSeatDetails(ShowReqBody showInfo) {
 		
@@ -126,8 +121,7 @@ public class AdminServiceImpl implements AdminService {
 	    }
 	    
 	    List<ShowSeatsEntity> addedSeats = showSeatsRepository.saveAll(showSeatsList);
-	    
-	   
+	       
 	    
 	    //Fetching Theater Entity
 	    Optional<TheaterEntity> optionalTheaterEntity = theaterRepository.findById(showInfo.getShowTheaterId());
@@ -144,7 +138,7 @@ public class AdminServiceImpl implements AdminService {
 	    boolean isTrue = theaterTotalSeats.equals(addedSeats.size());
 	    
 	    if(isTrue) {
-	    	log.info("Total seats entries:"+theaterTotalSeats); 
+	    	log.info("Matched with Total seats entries:"+theaterTotalSeats); 
 	     }else {
 	    	 log.error("Total seats entries are mismatched:"+theaterTotalSeats + " " + addedSeats.size()); 
 	     }

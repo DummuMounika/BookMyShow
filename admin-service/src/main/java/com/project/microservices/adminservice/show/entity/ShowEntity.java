@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.project.microservices.adminservice.model.Status;
 import com.project.microservices.adminservice.showseats.entity.ShowSeatsEntity;
 import com.project.microservices.adminservice.theater.entity.TheaterEntity;
 import com.project.microservices.adminservice.utils.JsonTimestampSerializer;
@@ -14,8 +13,6 @@ import com.project.microservices.adminservice.utils.JsonTimestampSerializer;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

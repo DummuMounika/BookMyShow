@@ -1,11 +1,8 @@
 package com.project.microservices.adminservice.theaterseats.entity;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.project.microservices.adminservice.show.entity.ShowEntity;
-import com.project.microservices.adminservice.theater.entity.TheaterEntity;
 import com.project.microservices.adminservice.utils.JsonTimestampSerializer;
 
 import jakarta.persistence.Column;
@@ -23,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "theaterseats")  //TODO add cost column
+@Table(name = "theaterseats")
 public class TheaterseatsEntity {
 
 	@Id
@@ -40,6 +37,9 @@ public class TheaterseatsEntity {
 
 	@Column(name="theaterseat_theater_id")
 	private Integer theaterseatTheaterId;
+	
+	@Column(name="theaterseat_cost")
+	private Double theaterseatCost;
 
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	@Column(name="theaterseat_createdon")

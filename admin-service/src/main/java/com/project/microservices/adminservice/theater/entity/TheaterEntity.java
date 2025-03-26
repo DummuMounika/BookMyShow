@@ -41,6 +41,9 @@ public class TheaterEntity {
 
 	@Column(name="theater_city")
 	private String theaterCity;
+	
+	@Column(name="theater_city_id")
+	private String theaterCityId;
 
 	@Column(name="theater_totalseats")
 	private Integer theaterTotalseats;
