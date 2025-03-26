@@ -3,6 +3,8 @@ package com.project.microservices.userservice.model;
 import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.project.microservices.userservice.utils.JsonTimestampSerializer;
 
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 	
 	private Integer userId;
@@ -23,13 +26,13 @@ public class User {
 	@NotEmpty @NotNull
 	private String userEmail;
 	@NotEmpty @NotNull
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String userPassword;
-	private Integer userNotificationtype;
-	@JsonIgnore
+	private Integer userNotificationtype = 1;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	private Timestamp userCreatedon;
-	@JsonIgnore
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@JsonSerialize(using = JsonTimestampSerializer.class)
 	private Timestamp userUpdatedon;
 
