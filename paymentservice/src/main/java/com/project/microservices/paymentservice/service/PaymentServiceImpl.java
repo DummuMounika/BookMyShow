@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class PaymentServiceImpl implements PaymentService {
+public class PaymentServiceImpl  implements PaymentService {
 
 	private final BookingServiceProxy bookingServiceProxy;
 	private final UserServiceProxy userServiceProxy;

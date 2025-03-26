@@ -17,5 +17,6 @@ public class PaymentResponse {
 	private ShowDetails showDetails;
 	private SeatPricingDetails seatPricingDetails;
 	
+	
 
 }
