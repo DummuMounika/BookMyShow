@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.microservices.searchservice.movie.service.MovieService;
 
-import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @RestController
 public class MovieController {
@@ -33,6 +33,11 @@ private MovieService movieService;
 	@GetMapping("/api/movie/explore")
 	public ResponseEntity<List<String>> getMoviesByCity(@RequestParam @NotBlank String cityName) {
 	    return new ResponseEntity<>(movieService.findMoviesByCity(cityName), HttpStatus.OK);
+	}
+	
+	@GetMapping("/api/v2/movie/explore")
+	public ResponseEntity<List<String>> getMoviesByCityId(@RequestParam @NotNull Integer cityId) {
+	    return new ResponseEntity<>(movieService.findMoviesByCityId(cityId), HttpStatus.OK);
 	}
 	
 

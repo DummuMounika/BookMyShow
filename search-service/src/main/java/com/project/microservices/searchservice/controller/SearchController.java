@@ -13,6 +13,7 @@ import com.project.microservices.searchservice.model.SearchResponse;
 import com.project.microservices.searchservice.service.SearchService;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @RestController
 public class SearchController {
@@ -25,15 +26,26 @@ public class SearchController {
 		this.searchService = searchService;
 	}
 
-	@GetMapping("/api/shows/search")
-	public ResponseEntity<SearchResponse> getShows(@RequestParam @NotBlank String movieName,@RequestParam @NotBlank String theaterCity) {
-		SearchResponse result = searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity);
+//	@GetMapping("/api/shows/search")
+//	public ResponseEntity<SearchResponse> getShows(@RequestParam @NotBlank String movieName,@RequestParam @NotBlank String theaterCity) {
+//		SearchResponse result = searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity);
+//	    return new ResponseEntity<>(result, HttpStatus.OK);
+//	}
+	
+	@GetMapping("/api/v2/shows/search")
+	public ResponseEntity<SearchResponse> getShows1(@RequestParam @NotNull Integer movieId,@RequestParam @NotNull Integer theaterCityId) {
+		SearchResponse result = searchService.findTheatersByMovieIdAndTheaterCityId(movieId, theaterCityId);
 	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	@GetMapping("/api/cities")
 	public ResponseEntity<List<String>> getCities(){
 		return new ResponseEntity<>(searchService.getAllCities(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/api/v2/cities")
+	public ResponseEntity<List<String>> getCities1(){
+		return new ResponseEntity<>(searchService.getAllCities1(),HttpStatus.OK);
 	}
 	
 
