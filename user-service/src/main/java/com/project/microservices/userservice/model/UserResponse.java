@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserResponse {
 	
+	private Integer userId;
+	private String userName;
+	private String userEmail;
 	private boolean success;
 	private String message;
 }
