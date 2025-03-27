@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.microservices.searchservice.exception.MovieNameNotFoundException;
+import com.project.microservices.searchservice.exception.MovieNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
+import com.project.microservices.searchservice.model.SearchQueryResponse1;
 import com.project.microservices.searchservice.movie.repository.MovieRepository;
 import com.project.microservices.searchservice.show.repository.ShowRepository;
 
@@ -33,6 +34,11 @@ public class MovieServiceImpl implements MovieService {
 	public List<SearchQueryResponse> findTheatersByMovieNameAndTheaterCity(String movieName, String theaterCity) {
 		return movieRepository.searchByMovieNameAndCity(movieName, theaterCity);
 	}
+	
+	@Override
+	public List<SearchQueryResponse1> findTheatersByMovieIdAndTheaterId(Integer movieId, Integer theaterId) {
+		return movieRepository.searchByMovieIdAndCityId(movieId, theaterId);
+	}
 
 	@Override
 	@RateLimiter(name = "myRateLimiter")
@@ -41,7 +47,7 @@ public class MovieServiceImpl implements MovieService {
 		List<String> listOfMovieNames = movieRepository.findByMovieName(movieName);
 		if(listOfMovieNames.isEmpty()) {
 			log.warn("No movie search list found for movieName: {}", movieName);
-		    throw new MovieNameNotFoundException("No list found for the given name: " + movieName);
+		    throw new MovieNotFoundException("No list found for the given name: " + movieName);
 		}
 		return listOfMovieNames;
 	}
@@ -51,7 +57,17 @@ public class MovieServiceImpl implements MovieService {
 		List<String> listOfMovieNamesByCity = showRepository.searchByCitiesToGetMovies(cityName);
 		if(listOfMovieNamesByCity.isEmpty()) {
 			log.warn("No movie search list found for movieName: {}", cityName);
-		    throw new MovieNameNotFoundException("No list found for the given name: " + cityName);
+		    throw new MovieNotFoundException("No list found for the given name: " + cityName);
+		}
+		return listOfMovieNamesByCity;
+	}
+	
+	@Override
+	public List<String> findMoviesByCityId(Integer cityId) {
+		List<String> listOfMovieNamesByCity = showRepository.searchByCitiesToGetMovies1(cityId);
+		if(listOfMovieNamesByCity.isEmpty()) {
+			log.warn("No movie search list found for movieName: {}", cityId);
+		    throw new MovieNotFoundException("No list found for the given id: " + cityId);
 		}
 		return listOfMovieNamesByCity;
 	}
