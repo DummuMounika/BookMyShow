@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.microservices.userservice.exception.InvalidUserResponseException;
-import com.project.microservices.userservice.exception.UserNotFoundException;
+import com.project.microservices.userservice.exception.NotFoundException;
 import com.project.microservices.userservice.model.User;
 import com.project.microservices.userservice.model.UserRequest;
 import com.project.microservices.userservice.model.UserResponse;
@@ -53,15 +53,14 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserResponse loginUser(UserRequest userRequest) {
 		Optional<UserEntity> userEntity = userRepository.findByUserEmail(userRequest.getUserEmail());
-		if(userEntity.isPresent()) {
-			UserEntity entity = userEntity.get();
-			 if (entity.getUserPassword().equals(userRequest.getUserPassword())) {
-	              return new UserResponse(true, "Login successful");
-	         } else {
-	        	  throw new InvalidUserResponseException(false, "Invalid credentials");
-	         }	
-		}else {		
-			throw new UserNotFoundException(false, "User not found");		
+		if(userEntity.isEmpty()) {
+			throw new InvalidUserResponseException(false, "Invalid credentials");
+        }	
+		UserEntity entity = userEntity.get();
+		if(entity.getUserPassword().equals(userRequest.getUserPassword())) {
+	         return new UserResponse(entity.getUserId(),entity.getUserName(),entity.getUserEmail(),true, "Login successful");
+		} else {		
+			throw new NotFoundException(false, "Passowrd was incorrect");		
 		}
 	}
 
@@ -69,7 +68,7 @@ public class UserServiceImpl implements UserService{
 	public User getUserDetails(Integer userId) {
 		Optional<UserEntity> userDetail = userRepository.findById(userId);
 		if(userDetail.isEmpty()) {
-			throw new UserNotFoundException(false, "User not found");	
+			throw new NotFoundException(false, "User not found with ID");	
 		}
 		log.info("user found with {}",userId);
 		
