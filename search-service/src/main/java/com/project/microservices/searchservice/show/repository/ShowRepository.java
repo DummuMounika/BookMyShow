@@ -29,6 +29,13 @@ public interface ShowRepository extends JpaRepository<ShowEntity, Integer> {
 		     + "JOIN MovieEntity m ON s.showMovieId = m.movieId "
 		     + "WHERE t.theaterCity = :city")
 		List<String> searchByCitiesToGetMovies(@Param("city") String city);
+	
+	@Query(value = "SELECT DISTINCT m.movieName FROM ShowEntity s "
+		     + "JOIN TheaterEntity t ON s.showTheaterId = t.theaterId "
+		     + "JOIN MovieEntity m ON s.showMovieId = m.movieId "
+		     + "WHERE t.theaterCityId = :cityId")
+		List<String> searchByCitiesToGetMovies1(@Param("cityId") Integer cityId);
+
 
 
 }
