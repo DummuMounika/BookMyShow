@@ -26,8 +26,8 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(),"Failed"));
 	}
 	
-	@ExceptionHandler({MovieNameNotFoundException.class})
-	public ResponseEntity<Object> handleMovieNameNotFoundException(MovieNameNotFoundException exception){
+	@ExceptionHandler({MovieNotFoundException.class})
+	public ResponseEntity<Object> handleMovieNameNotFoundException(MovieNotFoundException exception){
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(exception.getMessage(),"Failed"));
 	}
 	
