@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.project.microservices.userservice.model.UserResponse;
+import com.project.microservices.userservice.model.Error;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler({InvalidUserResponseException.class})
-	public ResponseEntity<UserResponse> handleInvalidUserResponseException(InvalidUserResponseException exception){
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserResponse(false,"Invalid Credential"));
+	public ResponseEntity<Error> handleInvalidUserResponseException(InvalidUserResponseException exception){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(false,"Invalid Credential"));
+	}
+	@ExceptionHandler({NotFoundException.class})
+	public ResponseEntity<Error> handleUserNotFoundException(NotFoundException exception){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Error(false,"User Not Found"));
 	}
 	
-	@ExceptionHandler({UserNotFoundException.class})
-	public ResponseEntity<UserResponse> handleUserNotFoundException(UserNotFoundException exception){
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new UserResponse(false,"User Not Found"));
-	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
