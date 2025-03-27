@@ -11,7 +11,8 @@ public class InvalidUserResponseException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public InvalidUserResponseException(boolean b, String string) {
+	public InvalidUserResponseException(boolean status,String message) {
+		super(message);
 	}
 
 }
