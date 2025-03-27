@@ -3,6 +3,7 @@ package com.project.microservices.searchservice.theater.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.project.microservices.searchservice.show.entity.ShowEntity;
 import com.project.microservices.searchservice.utils.JsonTimestampSerializer;
@@ -39,8 +40,12 @@ public class TheaterEntity {
 	@Column(name="theater_address")
 	private String theaterAddress;
 
+	@JsonIgnore
 	@Column(name="theater_city")
 	private String theaterCity;
+	
+	@Column(name="theater_city_id")
+	private Integer theaterCityId;
 
 	@Column(name="theater_totalseats")
 	private Integer theaterTotalseats;

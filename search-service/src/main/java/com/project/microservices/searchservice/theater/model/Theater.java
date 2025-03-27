@@ -33,6 +33,9 @@ public class Theater {
 	@NotEmpty @NotNull
 	@Column(name="theater_city")
 	private String theaterCity;
+	
+	@Column(name="theater_city_id")
+	private Integer theaterCityId;
 
 	@Positive
 	@Column(name="theater_totalseats")
