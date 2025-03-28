@@ -131,14 +131,23 @@ public class SearchServiceImpl  implements SearchService{
 	}
 	
 	@Override
-	public List<String> getAllCities1() {
-		List<String> cities = cityRepository.searchAllCities();
-		if(cities.isEmpty()) {
-			throw new NotFoundException("No cities found from the entity");
-		}
-		return cities;
-	}
+	public HashMap<Integer, String> getAllCities1() {
+	    List<CityEntity> cityEntity = cityRepository.findAll();
+	    if (cityEntity.isEmpty()) {
+	        throw new NotFoundException("No cities found from the entity");
+	    }
 
+	    // Initialize the map before usage
+	    HashMap<Integer, String> mapList = new HashMap<>();
+
+	    // Populate the map with cityId as key and cityName as value
+	    for (CityEntity entity : cityEntity) {
+	        mapList.put(entity.getCityId(), entity.getCityName());
+	    }
+
+	    return mapList;
+	}
+	
 	@Override
 	public SearchResponse findTheatersByMovieIdAndTheaterCityId(Integer movieId, Integer theaterCityId) {
 		SearchResponse searchResponse = new SearchResponse();

@@ -1,6 +1,8 @@
 package com.project.microservices.searchservice.movie.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.project.microservices.searchservice.exception.MovieNotFoundException;
 import com.project.microservices.searchservice.model.SearchQueryResponse;
 import com.project.microservices.searchservice.model.SearchQueryResponse1;
+import com.project.microservices.searchservice.movie.model.MovieResponse;
 import com.project.microservices.searchservice.movie.repository.MovieRepository;
 import com.project.microservices.searchservice.show.repository.ShowRepository;
 
@@ -63,13 +66,21 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	@Override
-	public List<String> findMoviesByCityId(Integer cityId) {
-		List<String> listOfMovieNamesByCity = showRepository.searchByCitiesToGetMovies1(cityId);
-		if(listOfMovieNamesByCity.isEmpty()) {
-			log.warn("No movie search list found for movieName: {}", cityId);
-		    throw new MovieNotFoundException("No list found for the given id: " + cityId);
-		}
-		return listOfMovieNamesByCity;
+	public Map<Integer,String> findMoviesByCityId(Integer cityId) {
+	    List<MovieResponse> listOfMovieNamesByCity = showRepository.searchByCitiesToGetMovies1(cityId);
+
+	    if (listOfMovieNamesByCity.isEmpty()) {
+	        log.warn("No movies found for cityId: {}", cityId);
+	        throw new MovieNotFoundException("No movies found for the given city ID: " + cityId);
+	    }
+	    
+	    Map<Integer, String> movieMap = new HashMap<>();
+	    for(MovieResponse movies: listOfMovieNamesByCity) {
+	    	movieMap.put(movies.getMovieId(), movies.getMovieName());
+	    }
+	    
+	    return movieMap;
 	}
+
 
 }
