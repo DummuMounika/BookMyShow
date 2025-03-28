@@ -1,6 +1,7 @@
 package com.project.microservices.searchservice.movie.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,7 +37,7 @@ private MovieService movieService;
 	}
 	
 	@GetMapping("/api/v2/movie/explore")
-	public ResponseEntity<List<String>> getMoviesByCityId(@RequestParam @NotNull Integer cityId) {
+	public ResponseEntity<Map<Integer,String>> getMoviesByCityId(@RequestParam @NotNull Integer cityId) {
 	    return new ResponseEntity<>(movieService.findMoviesByCityId(cityId), HttpStatus.OK);
 	}
 	
