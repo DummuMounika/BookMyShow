@@ -1,10 +1,9 @@
 package com.project.microservices.searchservice.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.project.microservices.searchservice.model.SearchResponse;
-
-import jakarta.validation.constraints.NotBlank;
 
 public interface SearchService {
 
@@ -14,7 +13,7 @@ public interface SearchService {
 	
 	public List<String> getAllCities();
 	
-	public List<String> getAllCities1();
+	public HashMap<Integer, String> getAllCities1();
 
 	
 
