@@ -1,6 +1,8 @@
 package com.project.microservices.searchservice.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +28,11 @@ public class SearchController {
 		this.searchService = searchService;
 	}
 
-//	@GetMapping("/api/shows/search")
-//	public ResponseEntity<SearchResponse> getShows(@RequestParam @NotBlank String movieName,@RequestParam @NotBlank String theaterCity) {
-//		SearchResponse result = searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity);
-//	    return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
+	@GetMapping("/api/shows/search")
+	public ResponseEntity<SearchResponse> getShows(@RequestParam @NotBlank String movieName,@RequestParam @NotBlank String theaterCity) {
+		SearchResponse result = searchService.findTheatersByMovieNameAndTheaterCity(movieName, theaterCity);
+	    return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 	
 	@GetMapping("/api/v2/shows/search")
 	public ResponseEntity<SearchResponse> getShows1(@RequestParam @NotNull Integer movieId,@RequestParam @NotNull Integer theaterCityId) {
@@ -44,7 +46,7 @@ public class SearchController {
 	}
 	
 	@GetMapping("/api/v2/cities")
-	public ResponseEntity<List<String>> getCities1(){
+	public ResponseEntity<HashMap<Integer, String>> getCities1(){
 		return new ResponseEntity<>(searchService.getAllCities1(),HttpStatus.OK);
 	}
 	
