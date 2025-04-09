@@ -60,7 +60,6 @@ BookMyShow supports deployment in various environments with the following techno
 - **Docker & Docker-Compose** installed
 - **Java 17+**
 - **PostgreSQL**
-- **Jenkins** (Optional for CI/CD)
 
 ### Steps to Run
 1. Clone the repository:
