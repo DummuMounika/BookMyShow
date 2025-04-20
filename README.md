@@ -7,6 +7,7 @@ BookMyShow is a microservices-based platform that simplifies movie ticket bookin
 BookMyShow follows a modular microservices approach, enabling flexibility and high availability. The core microservices include:
 
 - **User Service**: Manages authentication and user profiles.
+- **Admin Service**: Manages all entities entry
 - **Search Service**: Handles movie, theater, show, and  seat details and schedules.
 - **Booking Service**: Processes ticket bookings and payments.
 - **Payment Service**: Ensures secure and seamless transactions.
@@ -25,6 +26,7 @@ BookMyShow follows a modular microservices approach, enabling flexibility and hi
 - **Retry Mechanism (Resilience4J)**: Enhances API reliability by retrying failed requests.
 - **Zipkin Distributed Tracing Server**: Provides request tracing across services.
 - **PostgreSQL Database**: Ensures efficient data storage and retrieval.
+- **ELK Stack**: Monitoring & Logging
 
 ## 🚀 Deployment
 BookMyShow supports deployment in various environments with the following technologies:
@@ -37,12 +39,19 @@ BookMyShow supports deployment in various environments with the following techno
 - `POST /api/register` - Register a new user
 - `POST /api/login` - Authenticate a user
 
+### 🎭 Admin Service (ADMIN-SERVICE)
+- `POST /api/addShow = - Adds new show
+- `POST /api/addShowSeatDetails` - Adds new seats for shows
+
 ### 🔍Search Service (SEARCH-SERVICE)
 - `GET /api/cities` - Retrieve all cities
+- `GET /api/v2/cities` - Retrieve all cities with names and IDs
 - `GET /api/movie/search?movieName=` - Search Movies based on movie name
-- `GET /api/showdetails?showId=` - Retrieve Show details by show Id
-- `GET /api/theater/seats?showId=` - Retrieve Show seat details by show Id
+- `GET /api/v2/movie/search?movieName=` - Search Movies based on movie names and IDs
+- `GET /api/showdetails?showId=` - Retrieve Show details by show ID
+- `GET /api/theater/seats?showId=` - Retrieve Show seat details by show ID
 - `POST /api/shows/search?movieName=City=` - Search Theaters based on movie name and city
+- `POST /api/v2/shows/search?movieName=City=` - Search Theaters based on movie and city IDs
 
 ### 🎟️ Booking Service (BOOKING-SERVICE)
 - `POST /api/addBooking` - Book movie tickets
@@ -75,5 +84,6 @@ BookMyShow supports deployment in various environments with the following techno
    - **Eureka Dashboard**: `http://localhost:8761`
    - **API Gateway**: `http://localhost:8080`
    - **PostgreSQL Admin**: `http://localhost:5432`
+   - **Log Monitoring**: `http://localhost:5601`
 
 
